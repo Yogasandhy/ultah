@@ -3,8 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const ENTRIES = [
     {
-        date: "awal mula...",
-        text: "ga nyangka dari satu squad random PUBGM bisa sampe sedekat ini ya. dari ngobrol di vc sambil looting bareng sampe sekarang kamu jadi orang paling penting buat aku 🔫💕",
+        date: "malem-malem call sambil mabar...",
+        text: "ga nyangka dari satu squad random PUBGM bisa sampe sedekat ini ya. dari ngobrol di call sambil looting bareng sampe sekarang kamu jadi orang paling penting buat aku 🔫💕",
         emoji: "🎮"
     },
     {

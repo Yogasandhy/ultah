@@ -2,84 +2,84 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const QUESTIONS = [
-    {
-        question: "siapa yg paling sering AFK pas lagi mabar ML? 😴",
-        answers: ["aku (cowok)", "kamu (cewek)", "dua-duanya wkwk 😂"],
-        correct: 1
-    },
-    {
-        question: "game Roblox favorit kita buat main bareng?",
-        answers: ["Adopt Me", "Blox Fruits", "semua seru asal bareng kamu! 🎮"],
-        correct: 2
-    },
-    {
-        question: "apa yg paling sering kita lakuin pas LDR?",
-        answers: ["vc sambil diem-dieman 📱", "mabar sampe ngantuk 🎮", "dua-duanya! 💕"],
-        correct: 2
-    },
-    {
-        question: "hero ML favorit pasangan kamu?",
-        answers: ["carry yg katanya jago padahal feeder 😂", "tank setia yg selalu protect", "support yg healing terus"],
-        correct: 1
-    },
+  {
+    question: "siapa yg paling sering AFK pas lagi mabar ML? 😴",
+    answers: ["aku (cowok)", "kamu (cewek)", "dua-duanya wkwk 😂"],
+    correct: 1
+  },
+  {
+    question: "game Roblox favorit kita buat main bareng?",
+    answers: ["Adopt Me", "Blox Fruits", "semua seru asal bareng kamu! 🎮"],
+    correct: 2
+  },
+  {
+    question: "apa yg paling sering kita lakuin pas LDR?",
+    answers: ["call sambil diem-dieman 📱", "mabar sampe ngantuk 🎮", "dua-duanya! 💕"],
+    correct: 2
+  },
+  {
+    question: "hero ML favorit pasangan kamu?",
+    answers: ["carry yg katanya jago padahal feeder 😂", "tank setia yg selalu protect", "support yg healing terus"],
+    correct: 1
+  },
 ];
 
 const QuizScreen = ({ onNext }) => {
-    const [currentQ, setCurrentQ] = useState(0);
-    const [isShake, setIsShake] = useState(false);
-    const [selectedWrong, setSelectedWrong] = useState(null);
+  const [currentQ, setCurrentQ] = useState(0);
+  const [isShake, setIsShake] = useState(false);
+  const [selectedWrong, setSelectedWrong] = useState(null);
 
-    const handleAnswer = (index) => {
-        if (index === QUESTIONS[currentQ].correct) {
-            if (currentQ < QUESTIONS.length - 1) {
-                setCurrentQ(prev => prev + 1);
-                setSelectedWrong(null);
-            } else {
-                onNext();
-            }
-        } else {
-            setSelectedWrong(index);
-            setIsShake(true);
-            setTimeout(() => { setIsShake(false); setSelectedWrong(null); }, 600);
-        }
-    };
+  const handleAnswer = (index) => {
+    if (index === QUESTIONS[currentQ].correct) {
+      if (currentQ < QUESTIONS.length - 1) {
+        setCurrentQ(prev => prev + 1);
+        setSelectedWrong(null);
+      } else {
+        onNext();
+      }
+    } else {
+      setSelectedWrong(index);
+      setIsShake(true);
+      setTimeout(() => { setIsShake(false); setSelectedWrong(null); }, 600);
+    }
+  };
 
-    return (
-        <div className="quiz-container">
-            <div className="quiz-progress-wrap">
-                <motion.div
-                    className="quiz-progress-fill"
-                    animate={{ width: `${((currentQ + 1) / QUESTIONS.length) * 100}%` }}
-                />
-            </div>
+  return (
+    <div className="quiz-container">
+      <div className="quiz-progress-wrap">
+        <motion.div
+          className="quiz-progress-fill"
+          animate={{ width: `${((currentQ + 1) / QUESTIONS.length) * 100}%` }}
+        />
+      </div>
 
-            <motion.div
-                className="quiz-card"
-                key={currentQ}
-                initial={{ x: 80, opacity: 0 }}
-                animate={isShake ? { x: [-8, 8, -8, 8, 0] } : { x: 0, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      <motion.div
+        className="quiz-card"
+        key={currentQ}
+        initial={{ x: 80, opacity: 0 }}
+        animate={isShake ? { x: [-8, 8, -8, 8, 0] } : { x: 0, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      >
+        <p className="quiz-step">question {currentQ + 1}/{QUESTIONS.length}</p>
+        <h2 className="quiz-question">{QUESTIONS[currentQ].question}</h2>
+
+        <div className="quiz-answers">
+          {QUESTIONS[currentQ].answers.map((ans, idx) => (
+            <motion.button
+              key={idx}
+              className={`quiz-answer-btn ${selectedWrong === idx ? 'wrong' : ''}`}
+              whileHover={{ scale: 1.03, borderColor: 'rgba(167,139,250,0.5)' }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => handleAnswer(idx)}
             >
-                <p className="quiz-step">question {currentQ + 1}/{QUESTIONS.length}</p>
-                <h2 className="quiz-question">{QUESTIONS[currentQ].question}</h2>
+              <span className="answer-letter">{String.fromCharCode(65 + idx)}</span>
+              {ans}
+            </motion.button>
+          ))}
+        </div>
+      </motion.div>
 
-                <div className="quiz-answers">
-                    {QUESTIONS[currentQ].answers.map((ans, idx) => (
-                        <motion.button
-                            key={idx}
-                            className={`quiz-answer-btn ${selectedWrong === idx ? 'wrong' : ''}`}
-                            whileHover={{ scale: 1.03, borderColor: 'rgba(167,139,250,0.5)' }}
-                            whileTap={{ scale: 0.97 }}
-                            onClick={() => handleAnswer(idx)}
-                        >
-                            <span className="answer-letter">{String.fromCharCode(65 + idx)}</span>
-                            {ans}
-                        </motion.button>
-                    ))}
-                </div>
-            </motion.div>
-
-            <style>{`
+      <style>{`
         .quiz-container {
           display: flex; align-items: center; justify-content: center;
           height: 100vh; width: 100vw; padding: 20px;
@@ -148,8 +148,8 @@ const QuizScreen = ({ onNext }) => {
           color: #a78bfa;
         }
       `}</style>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default QuizScreen;

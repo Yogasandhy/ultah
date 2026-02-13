@@ -5,9 +5,9 @@ const GOALS = [
   { text: "ketemu langsung & pelukan pertama 🫂", emoji: "✈️" },
   { text: "push rank ML sampe Mythic bareng 🏆", emoji: "🎮" },
   { text: "taklukkin semua map horror di Roblox 👻", emoji: "🏔️" },
-  { text: "vc sambil nonton film bareng 🎬", emoji: "📱" },
+  { text: "call sambil nonton film bareng 🎬", emoji: "📱" },
   { text: "jalan-jalan ke pantai pas ketemu 🏖️", emoji: "🌊" },
-  { text: "masak bareng lewat vc (pasti chaos) 🍳", emoji: "👨‍🍳" },
+  { text: "masak bareng lewat call (pasti chaos) 🍳", emoji: "👨‍🍳" },
   { text: "gaming marathon 24 jam non-stop 🎮", emoji: "⏰" },
   { text: "kirim surat cinta fisik lewat pos 💌", emoji: "📮" },
 ];
@@ -224,6 +224,14 @@ const BucketListScreen = ({ onNext }) => {
           color: #fff; font-weight: 700;
           box-shadow: 0 8px 25px rgba(167,139,250,0.35);
           font-family: var(--font-heading);
+        }
+        @media (max-height: 700px) {
+            .bucket-container {
+                justify-content: flex-start;
+                padding-top: 10px;
+            }
+            .bucket-title { font-size: 1.5rem; }
+            .goal-item { padding: 10px 14px; }
         }
       `}</style>
     </div>

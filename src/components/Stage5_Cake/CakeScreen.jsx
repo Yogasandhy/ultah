@@ -105,7 +105,7 @@ const CakeScreen = () => {
                                     hai kamu! selamat ulang tahun yaa... <br /><br />
                                     dari squad random di PUBGM sampe jadi orang paling penting di hidup aku.
                                     walau kita dipisahin jarak, tapi feeling aku ke kamu ga pernah berkurang sedikitpun.
-                                    tiap vc bareng, tiap mabar ML (walau kebanyakan kalah wkwk), tiap teriak-teriak di map horror Roblox —
+                                    tiap call bareng, tiap mabar ML (walau kebanyakan kalah wkwk), tiap teriak-teriak di map horror Roblox —
                                     itu semua jadi momen yg paling aku tunggu tiap harinya.<br /><br />
                                     kamu itu player 2 terbaik yg pernah aku punya.
                                     bukan cuma di game, tapi di real life juga.
@@ -271,8 +271,14 @@ const CakeScreen = () => {
                     background-clip: text;
                 }
                 .letter-body {
-                    line-height: 1.8; font-size: 1.05rem;
+                    line-height: 1.8; font-size: 1rem;
                     opacity: 0.9;
+                }
+                @media (max-width: 400px) {
+                    .letter-card { padding: 30px 20px; }
+                    .letter-title { font-size: 1.5rem; }
+                    .letter-body { font-size: 0.95rem; }
+                    .cake-body { transform: scale(0.9); }
                 }
             `}</style>
         </div>

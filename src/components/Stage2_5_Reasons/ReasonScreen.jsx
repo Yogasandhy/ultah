@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const REASONS = [
   { emoji: "🔫", text: "dari satu squad PUBGM, kamu jadi squad seumur hidup aku" },
-  { emoji: "📱", text: "vc tiap malem sampe salah satu ketiduran itu udah kayak kebutuhan" },
+  { emoji: "📱", text: "call tiap malem sampe salah satu ketiduran itu udah kayak kebutuhan" },
   { emoji: "🎮", text: "mabar ML itu seru, walau kebanyakan kalahnya wkwk 😂" },
-  { emoji: "🌙", text: "kamu selalu bilang 'jangan tidur dulu' padahal udah ngantuk bgt" },
+  { emoji: "🌙", text: "belum mau tidur belum ngantuk pdahal ngantuk banget aslinya" },
   { emoji: "🏔️", text: "naik gunung di Roblox bareng kamu itu adventure terbaik" },
   { emoji: "👻", text: "di map horror Roblox, kamu selalu teriak duluan padahal katanya ga takut" },
   { emoji: "🌈", text: "walau LDR, kamu bikin jarak itu kerasa deket bgt" },
