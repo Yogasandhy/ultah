@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka:wght@300..700&display=swap');
+
+:root {
+  --color-pastel-pink: #FFC0CB;
+  --color-pastel-yellow: #FFFACD;
+  --color-pastel-blue: #ADD8E6;
+  --color-bg-dark: #1a1a1a;
+  --color-text-main: #333333;
+  --font-heading: "Fredoka", sans-serif;
+  --font-body: "Comic Neue", cursive;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-dark);
+  color: #fff;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+button {
+  font-family: var(--font-heading);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
