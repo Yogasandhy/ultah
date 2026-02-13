@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const GOALS = [
-  { text: "Ketemu langsung & pelukan pertama 🫂", emoji: "✈️" },
-  { text: "Push rank ML sampai Mythic bareng 🏆", emoji: "🎮" },
-  { text: "Taklukkin semua map horror di Roblox 👻", emoji: "🏔️" },
-  { text: "Video call sambil nonton film bareng 🎬", emoji: "📱" },
-  { text: "Jalan-jalan ke pantai pas ketemu 🏖️", emoji: "🌊" },
-  { text: "Masak bareng lewat vc (pasti chaos) 🍳", emoji: "👨‍🍳" },
-  { text: "Gaming marathon 24 jam non-stop 🎮", emoji: "⏰" },
-  { text: "Kirim surat cinta fisik lewat pos 💌", emoji: "📮" },
+  { text: "ketemu langsung & pelukan pertama 🫂", emoji: "✈️" },
+  { text: "push rank ML sampe Mythic bareng 🏆", emoji: "🎮" },
+  { text: "taklukkin semua map horror di Roblox 👻", emoji: "🏔️" },
+  { text: "vc sambil nonton film bareng 🎬", emoji: "📱" },
+  { text: "jalan-jalan ke pantai pas ketemu 🏖️", emoji: "🌊" },
+  { text: "masak bareng lewat vc (pasti chaos) 🍳", emoji: "👨‍🍳" },
+  { text: "gaming marathon 24 jam non-stop 🎮", emoji: "⏰" },
+  { text: "kirim surat cinta fisik lewat pos 💌", emoji: "📮" },
 ];
 
 const BucketListScreen = ({ onNext }) => {
@@ -23,16 +23,16 @@ const BucketListScreen = ({ onNext }) => {
     newChecked.add(index);
     setChecked(newChecked);
 
-    const burst = Array.from({ length: 6 }, (_, i) => ({
+    const burst = Array.from({ length: 5 }, (_, i) => ({
       id: Date.now() + i,
       x: Math.random() * 60 + 20,
       y: Math.random() * 60 + 20,
-      emoji: ['✨', '💖', '🌟', '⭐', '💕', '🎉'][i],
+      emoji: ['✨', '💖', '🌟', '⭐', '💕'][i],
     }));
     setSparkles(prev => [...prev, ...burst]);
     setTimeout(() => {
       setSparkles(prev => prev.filter(s => !burst.find(b => b.id === s.id)));
-    }, 1500);
+    }, 1200);
   };
 
   const progress = (checked.size / GOALS.length) * 100;
@@ -46,9 +46,9 @@ const BucketListScreen = ({ onNext }) => {
             className="sparkle-item"
             style={{ left: `${s.x}%`, top: `${s.y}%` }}
             initial={{ scale: 0, opacity: 1 }}
-            animate={{ scale: [0, 2, 0], opacity: [1, 1, 0], y: -60 }}
+            animate={{ scale: [0, 1.8, 0], opacity: [1, 1, 0], y: -50 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.8 }}
           >
             {s.emoji}
           </motion.div>
@@ -60,10 +60,9 @@ const BucketListScreen = ({ onNext }) => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        ✅ Couple Goals Kita
+        ✅ couple goals kita
       </motion.h1>
-
-      <p className="bucket-subtitle">Centang semua yang mau kita lakuin bareng!</p>
+      <p className="bucket-subtitle">centang semua yg mau kita lakuin bareng!</p>
 
       <div className="progress-ring-wrapper">
         <svg className="progress-ring" viewBox="0 0 120 120">
@@ -86,9 +85,9 @@ const BucketListScreen = ({ onNext }) => {
             <motion.div
               key={i}
               className={`goal-item ${isChecked ? 'checked' : ''}`}
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.08 }}
+              transition={{ delay: i * 0.07 }}
               onClick={() => handleCheck(i)}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -96,12 +95,12 @@ const BucketListScreen = ({ onNext }) => {
               <motion.div
                 className="checkbox"
                 animate={isChecked ? {
-                  backgroundColor: '#FF6B9D',
-                  borderColor: '#FF6B9D',
-                  scale: [1, 1.3, 1],
+                  backgroundColor: '#a78bfa',
+                  borderColor: '#a78bfa',
+                  scale: [1, 1.2, 1],
                 } : {
                   backgroundColor: 'transparent',
-                  borderColor: 'rgba(255,255,255,0.3)',
+                  borderColor: 'rgba(255,255,255,0.2)',
                 }}
               >
                 {isChecked && (
@@ -125,14 +124,14 @@ const BucketListScreen = ({ onNext }) => {
         {allChecked && (
           <motion.button
             className="bucket-next-btn"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: 'spring' }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.06, boxShadow: '0 0 35px rgba(167,139,250,0.5)' }}
+            whileTap={{ scale: 0.94 }}
             onClick={onNext}
           >
-            Semua tercapai! Lanjut ✨
+            semua kecapai! lanjut ✨
           </motion.button>
         )}
       </AnimatePresence>
@@ -147,81 +146,83 @@ const BucketListScreen = ({ onNext }) => {
           overflow-x: hidden;
         }
         .sparkle-item {
-          position: absolute; font-size: 1.5rem;
+          position: absolute; font-size: 1.3rem;
           pointer-events: none; z-index: 100;
         }
         .bucket-title {
           font-family: var(--font-heading);
-          font-size: 2rem;
-          margin-bottom: 4px;
-          text-shadow: 0 0 15px rgba(255, 107, 157, 0.4);
+          font-size: 1.8rem; margin-bottom: 4px;
+          text-shadow: 0 0 20px rgba(167,139,250,0.3);
         }
         .bucket-subtitle {
-          opacity: 0.6; margin-bottom: 15px;
-          font-size: 0.95rem;
+          opacity: 0.5; margin-bottom: 15px;
+          font-size: 0.9rem;
         }
         .progress-ring-wrapper {
-          position: relative; width: 80px; height: 80px;
-          margin-bottom: 20px;
+          position: relative; width: 75px; height: 75px;
+          margin-bottom: 18px;
         }
         .progress-ring {
           width: 100%; height: 100%;
           transform: rotate(-90deg);
         }
         .ring-bg {
-          fill: none; stroke: rgba(255, 255, 255, 0.1);
+          fill: none; stroke: rgba(255,255,255,0.08);
           stroke-width: 8;
         }
         .ring-fill {
-          fill: none; stroke: #FF6B9D;
+          fill: none; stroke: #a78bfa;
           stroke-width: 8; stroke-linecap: round;
         }
         .progress-text {
           position: absolute;
           top: 50%; left: 50%;
           transform: translate(-50%, -50%);
-          font-size: 1.1rem; font-weight: bold;
+          font-size: 1rem; font-weight: bold;
           font-family: var(--font-heading);
         }
         .goals-list {
           display: flex; flex-direction: column;
-          gap: 10px; width: 100%; max-width: 420px;
+          gap: 8px; width: 100%; max-width: 420px;
         }
         .goal-item {
           display: flex; align-items: center; gap: 12px;
-          background: rgba(255, 255, 255, 0.08);
+          background: rgba(255,255,255,0.05);
           backdrop-filter: blur(10px);
           padding: 14px 18px;
-          border-radius: 14px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 16px;
+          border: 1px solid rgba(255,255,255,0.08);
           cursor: pointer;
-          transition: background 0.2s;
+          transition: all 0.2s;
+        }
+        .goal-item:hover {
+          background: rgba(255,255,255,0.08);
         }
         .goal-item.checked {
-          background: rgba(255, 107, 157, 0.12);
-          border-color: rgba(255, 107, 157, 0.3);
+          background: rgba(167,139,250,0.1);
+          border-color: rgba(167,139,250,0.25);
         }
         .checkbox {
-          width: 26px; height: 26px;
+          width: 24px; height: 24px;
           border-radius: 8px;
-          border: 2px solid rgba(255, 255, 255, 0.3);
+          border: 2px solid rgba(255,255,255,0.2);
           display: flex; align-items: center; justify-content: center;
-          font-size: 0.9rem; color: #fff;
+          font-size: 0.85rem; color: #fff;
           flex-shrink: 0;
         }
-        .goal-emoji { font-size: 1.3rem; }
+        .goal-emoji { font-size: 1.2rem; }
         .goal-text {
-          font-size: 1rem; font-family: var(--font-heading);
+          font-size: 0.95rem; font-family: var(--font-heading);
           transition: opacity 0.3s;
         }
-        .goal-text.done { opacity: 0.5; text-decoration: line-through; }
+        .goal-text.done { opacity: 0.45; text-decoration: line-through; }
         .bucket-next-btn {
-          margin-top: 25px;
-          padding: 16px 35px; font-size: 1.1rem;
+          margin-top: 22px;
+          padding: 15px 35px; font-size: 1.05rem;
           border-radius: 50px; border: none;
-          background: linear-gradient(135deg, #FF6B9D, #C44569);
-          color: #fff; font-weight: bold;
-          box-shadow: 0 8px 25px rgba(196, 69, 105, 0.4);
+          background: linear-gradient(135deg, #a78bfa, #818cf8);
+          color: #fff; font-weight: 700;
+          box-shadow: 0 8px 25px rgba(167,139,250,0.35);
           font-family: var(--font-heading);
         }
       `}</style>

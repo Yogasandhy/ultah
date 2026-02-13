@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const REASONS = [
-  { emoji: "🔫", text: "Karena dari satu squad PUBGM, kamu jadi squad seumur hidup aku" },
-  { emoji: "📱", text: "Karena vc sampai subuh itu udah jadi kebutuhan, bukan kemauan" },
-  { emoji: "🎮", text: "Karena main ML bareng itu seru, walau kebanyakan kalahnya wkwk 😂" },
-  { emoji: "🌙", text: "Karena kamu selalu bilang 'jangan tidur dulu' padahal udah ngantuk" },
-  { emoji: "🏔️", text: "Karena naik gunung di Roblox bareng kamu itu petualangan terbaik" },
-  { emoji: "👻", text: "Karena di map horror Roblox, kamu selalu teriak duluan padahal bilangnya gak takut" },
-  { emoji: "🌈", text: "Karena walaupun LDR, kamu bikin jarak itu berasa deket" },
-  { emoji: "🎵", text: "Karena suara ketawa kamu di voice chat itu obat segala rindu" },
-  { emoji: "✈️", text: "Karena aku gak sabar nunggu hari dimana kita akhirnya ketemu" },
-  { emoji: "❤️", text: "Karena kamu itu kamu. Player 2 terbaik yang pernah aku punya." },
+  { emoji: "🔫", text: "dari satu squad PUBGM, kamu jadi squad seumur hidup aku" },
+  { emoji: "📱", text: "vc tiap malem sampe salah satu ketiduran itu udah kayak kebutuhan" },
+  { emoji: "🎮", text: "mabar ML itu seru, walau kebanyakan kalahnya wkwk 😂" },
+  { emoji: "🌙", text: "kamu selalu bilang 'jangan tidur dulu' padahal udah ngantuk bgt" },
+  { emoji: "🏔️", text: "naik gunung di Roblox bareng kamu itu adventure terbaik" },
+  { emoji: "👻", text: "di map horror Roblox, kamu selalu teriak duluan padahal katanya ga takut" },
+  { emoji: "🌈", text: "walau LDR, kamu bikin jarak itu kerasa deket bgt" },
+  { emoji: "🎵", text: "suara ketawa kamu di vc itu obat kangen paling ampuh fr" },
+  { emoji: "✈️", text: "aku ga sabar bgt nunggu hari dimana kita akhirnya ketemu" },
+  { emoji: "❤️", text: "karena kamu itu kamu. player 2 terbaik yg pernah aku punya." },
 ];
 
 const ReasonScreen = ({ onNext }) => {
@@ -26,18 +26,19 @@ const ReasonScreen = ({ onNext }) => {
     }
   };
 
+  const progress = ((currentIndex + 1) / REASONS.length) * 100;
+
   return (
     <div className="reason-container">
-      {/* Progress bar */}
-      <div className="progress-bar-wrapper">
+      <div className="reason-progress-wrap">
         <motion.div
-          className="progress-bar-fill"
-          animate={{ width: `${((currentIndex + 1) / REASONS.length) * 100}% ` }}
-          transition={{ duration: 0.3 }}
+          className="reason-progress-fill"
+          animate={{ width: `${progress}%` }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
         />
       </div>
 
-      <motion.p className="reason-counter" key={`counter - ${currentIndex} `}>
+      <motion.p className="reason-counter" key={`c-${currentIndex}`}>
         {currentIndex + 1} / {REASONS.length}
       </motion.p>
 
@@ -45,77 +46,92 @@ const ReasonScreen = ({ onNext }) => {
         <motion.div
           key={currentIndex}
           className="reason-card"
-          initial={{ x: 100, opacity: 0, rotateY: 30 }}
-          animate={{ x: 0, opacity: 1, rotateY: 0 }}
-          exit={{ x: -100, opacity: 0, rotateY: -30 }}
-          transition={{ type: "spring", stiffness: 200, damping: 25 }}
+          initial={{ x: 80, opacity: 0, scale: 0.95 }}
+          animate={{ x: 0, opacity: 1, scale: 1 }}
+          exit={{ x: -80, opacity: 0, scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 250, damping: 25 }}
         >
-          <div className="reason-emoji">{REASONS[currentIndex].emoji}</div>
-          <h2 className="reason-title">Alasan #{currentIndex + 1}</h2>
+          <div className="reason-emoji-wrap">
+            <span className="reason-emoji">{REASONS[currentIndex].emoji}</span>
+          </div>
+          <p className="reason-label">alasan #{currentIndex + 1}</p>
           <p className="reason-text">{REASONS[currentIndex].text}</p>
         </motion.div>
       </AnimatePresence>
 
       <motion.button
         className="reason-btn"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={{ scale: 1.06, boxShadow: '0 0 35px rgba(244,114,182,0.5)' }}
+        whileTap={{ scale: 0.94 }}
         onClick={handleNext}
       >
-        {isLast ? "Udah siap? Lanjut! 🎉" : "Selanjutnya →"}
+        {isLast ? "udah siap? lanjut! 🎉" : "next →"}
       </motion.button>
 
       <style>{`
-  .reason - container {
-  display: flex; flex - direction: column;
-  align - items: center; justify - content: center;
-  height: 100vh; width: 100vw; color: #fff;
-  padding: 20px;
-}
-        .progress - bar - wrapper {
-  position: absolute; top: 20px; left: 20px; right: 20px;
-  height: 6px; background: rgba(255, 255, 255, 0.2);
-  border - radius: 10px; overflow: hidden;
-}
-        .progress - bar - fill {
-  height: 100 %;
-  background: linear - gradient(90deg, #FF6B9D, #C44569);
-  border - radius: 10px;
-}
-        .reason - counter {
-  font - size: 1rem; opacity: 0.6; margin - bottom: 10px;
-}
-        .reason - card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop - filter: blur(15px);
-  padding: 50px 40px;
-  border - radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  text - align: center;
-  max - width: 450px; width: 100 %;
-  box - shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-}
-        .reason - emoji {
-  font - size: 4rem; margin - bottom: 15px;
-}
-        .reason - title {
-  font - family: var(--font - heading);
-  font - size: 1.3rem; opacity: 0.7;
-  margin - bottom: 15px;
-}
-        .reason - text {
-  font - size: 1.5rem; line - height: 1.5;
-  font - family: var(--font - heading);
-}
-        .reason - btn {
-  margin - top: 30px;
-  padding: 16px 35px; font - size: 1.1rem;
-  border - radius: 50px; border: none;
-  background: linear - gradient(135deg, #FF6B9D, #C44569);
-  color: #fff; font - weight: bold;
-  box - shadow: 0 8px 25px rgba(196, 69, 105, 0.4);
-}
-`}</style>
+        .reason-container {
+          display: flex; flex-direction: column;
+          align-items: center; justify-content: center;
+          height: 100vh; width: 100vw; color: #fff;
+          padding: 20px; position: relative;
+        }
+        .reason-progress-wrap {
+          position: absolute; top: 24px; left: 24px; right: 24px;
+          height: 4px; background: rgba(255,255,255,0.1);
+          border-radius: 10px; overflow: hidden;
+        }
+        .reason-progress-fill {
+          height: 100%;
+          background: linear-gradient(90deg, #f472b6, #a78bfa);
+          border-radius: 10px;
+        }
+        .reason-counter {
+          font-size: 0.9rem; opacity: 0.4; margin-bottom: 12px;
+          font-family: var(--font-heading);
+          letter-spacing: 0.05em;
+        }
+        .reason-card {
+          background: rgba(255,255,255,0.06);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          padding: 45px 35px;
+          border-radius: 28px;
+          border: 1px solid rgba(255,255,255,0.1);
+          text-align: center;
+          max-width: 420px; width: 100%;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+        }
+        .reason-emoji-wrap {
+          width: 72px; height: 72px;
+          background: rgba(244,114,182,0.12);
+          border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          margin: 0 auto 18px;
+          box-shadow: 0 0 20px rgba(244,114,182,0.15);
+        }
+        .reason-emoji { font-size: 2.2rem; }
+        .reason-label {
+          font-family: var(--font-heading);
+          font-size: 0.9rem; opacity: 0.4;
+          margin-bottom: 14px;
+          text-transform: lowercase;
+          letter-spacing: 0.08em;
+        }
+        .reason-text {
+          font-size: 1.35rem; line-height: 1.6;
+          font-family: var(--font-heading);
+          opacity: 0.95;
+        }
+        .reason-btn {
+          margin-top: 28px;
+          padding: 15px 38px; font-size: 1.05rem;
+          border-radius: 50px; border: none;
+          background: linear-gradient(135deg, #f472b6, #a78bfa);
+          color: #fff; font-weight: 700;
+          box-shadow: 0 8px 25px rgba(244,114,182,0.35);
+          font-family: var(--font-heading);
+        }
+      `}</style>
     </div>
   );
 };

@@ -3,28 +3,28 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const ENTRIES = [
     {
-        date: "Awal kita kenal di PUBGM...",
-        text: "Gak nyangka dari satu squad random di PUBGM bisa jadi sedekat ini. Dari ngobrol di voice chat sambil loot bareng, sampai sekarang kamu jadi orang paling penting di hidup aku. 🔫💕",
+        date: "awal mula...",
+        text: "ga nyangka dari satu squad random PUBGM bisa sampe sedekat ini ya. dari ngobrol di vc sambil looting bareng sampe sekarang kamu jadi orang paling penting buat aku 🔫💕",
         emoji: "🎮"
     },
     {
-        date: "Malem-malem vc sambil mabar...",
-        text: "Kita main ML bareng, dan jujur... kebanyakan kalahnya wkwk 😂 Tapi gapapa, kalah menang gak penting. Yang penting denger kamu marah-marah pas kena kill itu hiburan tersendiri. 🎮",
+        date: "mabar tiap malem...",
+        text: "kita mabar ML, dan jujur... kebanyakan kalahnya wkwk 😂 tapi gpp sih, kalah menang ga penting. yg penting denger kamu ngomel pas kena kill itu hiburan tersendiri",
         emoji: "🎮"
     },
     {
-        date: "Petualangan di Roblox...",
-        text: "Dari naik gunung bareng sampai lari-lari di map horror, kamu selalu teriak duluan padahal bilangnya gak takut. Momen-momen itu yang bikin aku kangen terus. 👻🏔️",
+        date: "petualangan roblox...",
+        text: "dari naik gunung bareng sampe lari-lari di map horror, kamu selalu teriak duluan padahal katanya ga takut?? 😂 momen-momen itu yg bikin kangen terus 👻🏔️",
         emoji: "🏔️"
     },
     {
-        date: "Hari-hari yang berat...",
-        text: "Kadang LDR bikin rindu gak ketulungan. Tapi setiap denger suara kamu di telepon, dunia rasanya baik-baik aja lagi. Kamu itu rumah aku, walau jauh. Semoga kita cepat ketemu ya... 🌙",
+        date: "hari-hari yg berat...",
+        text: "kadang LDR bikin kangen ga ketulungan. tapi tiap denger suara kamu di telepon, dunia rasanya baik-baik aja lagi. kamu tuh rumah aku, walau jauh. semoga kita cepet ketemu ya... 🌙",
         emoji: "🌙"
     },
     {
-        date: "Sekarang, di hari spesial kamu...",
-        text: "Dari jauh aku gak bisa peluk kamu langsung. Tapi semua kata-kata di sini aku tulis pakai cinta beneran. Semoga sebentar lagi kita bisa ketemu beneran. Happy Birthday, my player 2. ❤️",
+        date: "hari ini, hari spesial kamu...",
+        text: "dari jauh aku ga bisa peluk kamu langsung. tapi semua kata-kata di sini full dari hati. semoga bentar lagi kita bisa ketemu beneran ya. happy birthday, my player 2 ❤️",
         emoji: "🎂"
     },
 ];
@@ -36,7 +36,6 @@ const DiaryScreen = ({ onNext }) => {
     const [hearts, setHearts] = useState([]);
     const intervalRef = useRef(null);
 
-    // Typewriter effect
     useEffect(() => {
         const fullText = ENTRIES[currentEntry].text;
         let charIndex = 0;
@@ -50,24 +49,23 @@ const DiaryScreen = ({ onNext }) => {
                 clearInterval(intervalRef.current);
                 setIsTyping(false);
             }
-        }, 35);
+        }, 30);
 
         return () => clearInterval(intervalRef.current);
     }, [currentEntry]);
 
-    // Parallax heart rain
     useEffect(() => {
         const heartInterval = setInterval(() => {
             const newHeart = {
                 id: Date.now() + Math.random(),
                 x: Math.random() * 100,
-                size: 0.6 + Math.random() * 1.2,
+                size: 0.5 + Math.random() * 1,
                 duration: 4 + Math.random() * 4,
                 delay: Math.random() * 2,
-                opacity: 0.15 + Math.random() * 0.35,
+                opacity: 0.1 + Math.random() * 0.25,
             };
-            setHearts(prev => [...prev.slice(-12), newHeart]);
-        }, 600);
+            setHearts(prev => [...prev.slice(-10), newHeart]);
+        }, 700);
         return () => clearInterval(heartInterval);
     }, []);
 
@@ -99,7 +97,7 @@ const DiaryScreen = ({ onNext }) => {
                     animate={{ y: '110vh' }}
                     transition={{ duration: h.duration, delay: h.delay, ease: 'linear' }}
                 >
-                    ❤️
+                    💜
                 </motion.div>
             ))}
 
@@ -110,9 +108,8 @@ const DiaryScreen = ({ onNext }) => {
                     initial={{ rotateY: 90, opacity: 0 }}
                     animate={{ rotateY: 0, opacity: 1 }}
                     exit={{ rotateY: -90, opacity: 0 }}
-                    transition={{ duration: 0.6, ease: 'easeInOut' }}
+                    transition={{ duration: 0.5, ease: 'easeInOut' }}
                 >
-                    <div className="page-corner" />
                     <div className="diary-header">
                         <span className="diary-emoji">{entry.emoji}</span>
                         <p className="diary-date">{entry.date}</p>
@@ -123,17 +120,21 @@ const DiaryScreen = ({ onNext }) => {
                             {isTyping && <span className="cursor-blink">|</span>}
                         </p>
                     </div>
-                    <div className="page-number">{currentEntry + 1} / {ENTRIES.length}</div>
+                    <div className="page-dots">
+                        {ENTRIES.map((_, i) => (
+                            <span key={i} className={`dot ${i === currentEntry ? 'active' : ''} ${i < currentEntry ? 'done' : ''}`} />
+                        ))}
+                    </div>
                 </motion.div>
             </AnimatePresence>
 
             <motion.button
                 className="diary-btn"
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(167,139,250,0.5)' }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleNext}
             >
-                {isTyping ? 'Skip ⏩' : isLast ? 'Lanjut Petualangan! 🚀' : 'Halaman Berikutnya 📖'}
+                {isTyping ? 'skip ⏩' : isLast ? 'lanjut! 🚀' : 'next 📖'}
             </motion.button>
 
             <style>{`
@@ -150,55 +151,52 @@ const DiaryScreen = ({ onNext }) => {
         }
         .diary-page {
           position: relative;
-          background: linear-gradient(145deg, #fdf6e3, #f5e6c8);
-          border-radius: 12px;
-          padding: 40px 35px 30px;
-          max-width: 480px; width: 100%;
-          color: #4a3728;
-          box-shadow:
-            0 15px 40px rgba(0,0,0,0.25),
-            inset 0 0 60px rgba(139,90,43,0.08);
-          border: 1px solid rgba(139,90,43,0.15);
+          background: rgba(255,255,255,0.06);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-radius: 24px;
+          padding: 35px 30px 25px;
+          max-width: 460px; width: 100%;
+          color: #fff;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+          border: 1px solid rgba(255,255,255,0.1);
           z-index: 10;
-          perspective: 1000px;
-          font-family: 'Comic Neue', cursive;
         }
-        .page-corner {
-          position: absolute; top: 0; right: 0;
-          width: 0; height: 0;
-          border-top: 40px solid rgba(0,0,0,0.06);
-          border-left: 40px solid transparent;
-          border-radius: 0 12px 0 0;
-        }
-        .diary-header { text-align: center; margin-bottom: 20px; }
-        .diary-emoji { font-size: 3rem; display: block; margin-bottom: 8px; }
+        .diary-header { text-align: center; margin-bottom: 18px; }
+        .diary-emoji { font-size: 2.5rem; display: block; margin-bottom: 6px; }
         .diary-date {
-          font-style: italic; opacity: 0.65;
-          font-size: 1rem; font-family: var(--font-heading);
+          font-style: italic; opacity: 0.5;
+          font-size: 0.95rem; font-family: var(--font-heading);
+          letter-spacing: 0.03em;
         }
-        .diary-body { min-height: 120px; }
+        .diary-body { min-height: 100px; }
         .diary-text {
-          font-size: 1.2rem; line-height: 1.7;
-          white-space: pre-wrap;
+          font-size: 1.15rem; line-height: 1.7;
+          white-space: pre-wrap; opacity: 0.9;
         }
         .cursor-blink {
           animation: blink 0.7s step-end infinite;
-          font-weight: bold; color: #8b5a2b;
+          font-weight: bold; color: #a78bfa;
         }
-        @keyframes blink {
-          50% { opacity: 0; }
+        @keyframes blink { 50% { opacity: 0; } }
+        .page-dots {
+          display: flex; gap: 6px; justify-content: center;
+          margin-top: 20px;
         }
-        .page-number {
-          text-align: right; margin-top: 20px;
-          font-size: 0.85rem; opacity: 0.4;
+        .dot {
+          width: 8px; height: 8px; border-radius: 50%;
+          background: rgba(255,255,255,0.2);
+          transition: all 0.3s;
         }
+        .dot.active { background: #a78bfa; transform: scale(1.3); }
+        .dot.done { background: rgba(167,139,250,0.4); }
         .diary-btn {
-          margin-top: 30px; z-index: 10;
-          padding: 16px 35px; font-size: 1.1rem;
+          margin-top: 25px; z-index: 10;
+          padding: 14px 35px; font-size: 1.05rem;
           border-radius: 50px; border: none;
-          background: linear-gradient(135deg, #d4a373, #8b5a2b);
-          color: #fff; font-weight: bold;
-          box-shadow: 0 8px 25px rgba(139,90,43,0.35);
+          background: linear-gradient(135deg, #a78bfa, #818cf8);
+          color: #fff; font-weight: 700;
+          box-shadow: 0 8px 25px rgba(167,139,250,0.35);
           font-family: var(--font-heading);
         }
       `}</style>
